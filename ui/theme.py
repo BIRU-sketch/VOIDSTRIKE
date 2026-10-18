@@ -1,0 +1,34 @@
+# Modern obsidian dark palette
+BG = "#0b0f17"
+PANEL = "#131822"
+BORDER = "#1f2633"
+
+# Message bubbles
+USER_BUBBLE = "#2563eb"
+USER_BUBBLE_HOVER = "#3b82f6"
+BOT_BUBBLE = "#181f2c"
+BOT_BORDER = "#222c3d"
+
+# Accents & status
+ACCENT = "#60a5fa"
+ACCENT2 = "#a78bfa"
+TEXT = "#f1f5f9"
+MUTED = "#828c9e"
+ONLINE = "#22c55e"
+
+# Action buttons
+BTN_NEUTRAL = "#1c2331"
+BTN_NEUTRAL_HOVER = "#273245"
+BTN_DANGER = "#2d1b22"
+BTN_DANGER_HOVER = "#3e2430"
+
+# Typography
+FONT_FAMILY = "Segoe UI"
+FONT_BODY = (FONT_FAMILY, 13)
+FONT_SMALL = (FONT_FAMILY, 11)
+FONT_TITLE = (FONT_FAMILY, 15, "bold")
+FONT_ICON = (FONT_FAMILY, 24, "bold")
+FONT_SEND = (FONT_FAMILY, 16, "bold")
+
+BUBBLE_RADIUS = 14
+BUBBLE_WRAP = 350

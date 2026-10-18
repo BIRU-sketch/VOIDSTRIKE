@@ -1,0 +1,5 @@
+.env
+/assets/
+test_orb.py
+/venv/
+/__pycache__/
