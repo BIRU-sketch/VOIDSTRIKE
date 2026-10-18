@@ -1,7 +1,7 @@
 import threading
 
 import customtkinter as ctk
-
+from agent.executor import Executor
 import config
 from core.gemini_client import GeminiClient
 from ui import theme
@@ -20,6 +20,8 @@ class AppWindow(ctk.CTk):
         self.configure(fg_color=theme.BG)
 
         self.gemini = GeminiClient()
+        self.executor =Executor(self.gemini, on_progress=self._on_progress)
+        self.progress_lines=[]
         self.busy = False
         self.thinking_bubble = None
 
@@ -45,16 +47,27 @@ class AppWindow(ctk.CTk):
         self.input_bar.set_enabled(False)
         self.header.set_status("Thinking...", theme.ACCENT)
         self.thinking_bubble = self.chat.add_message("Thinking...", "bot")
-
+        self.progress_lines=[]
         threading.Thread(target=self._ask, args=(text,), daemon=True).start()
 
     def _ask(self, text):
-        reply = self.gemini.send(text)
+        reply = self.executor.handle(text)
         self.after(0, self._show_reply, reply)
-
+    def _on_progress(self, line):
+        self.after(0, self._show_progress,line)
+    def _show_progress(self , line):
+        self.progress_lines.append(line)
+        if self.thinking_bubble is not None:
+            self.thinking_bubble.set_text("\n".join(self.progress_lines[-12:]))
+        self.header.set_status(line.strip()[:40], theme.ACCENT)
+        self.chat._scroll_to_bottom()
     def _show_reply(self, reply):
         if self.thinking_bubble is not None:
-            self.thinking_bubble.set_text(reply)
+            if self.progress_lines:
+                self.thinking_bubble.set_text("\n".join(self.progress_lines))
+                self.chat.add_message(reply, "bot")
+            else:
+                self.thinking_bubble.set_text(reply)
             self.thinking_bubble = None
         self.busy = False
         self.input_bar.set_enabled(True)

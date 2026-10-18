@@ -33,5 +33,37 @@ class GeminiClient:
             return response.text or "no response"
         except Exception as e:
             return f"something went wrong: {str(e)}"
+    def generate(self, prompt, system=None):
+        if self.error:
+            return "something went wrong: "+self.error
+        try:
+            response = self.client.models.generate_content(
+                model=config.model,
+                contents=prompt,
+                config=types.GenerateContentConfig(system_instruction=system),
+            )
+            return response.text or "no response"
+
+        except Exception as e:
+            return "something went wrong: "+str(e)
+    def run_with_tools(self, prompt, tools, system=None, max_calls=10):
+        if self.error:
+            return "something went wrong: "+self.error
+        try:
+            response = self.client.models.generate_content(
+                model=config.model,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=system,
+                    tools=tools,
+                    automatic_function_calling=types.AutomaticFunctionCallingConfig(
+                        maximum_remote_calls=max_calls
+                    ),
+                ),
+            )
+            return response.text or "no response"
+        except Exception as e:
+            return f"something went wrong: {str(e)}"
+
     def reset(self):
         self.start_session()

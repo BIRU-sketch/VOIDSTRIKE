@@ -32,7 +32,7 @@ class Header(ctk.CTkFrame):
 
         self.status = ctk.CTkLabel(
             titles,
-            text="● Online",
+            text="online",
             font=theme.FONT_SMALL,
             text_color=theme.ONLINE,
         )
