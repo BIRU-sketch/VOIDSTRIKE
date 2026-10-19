@@ -1,2 +1,3 @@
-#Goblin(couldnt change the repo name after devlog)
-This is an AI powered desktop automation app that executes repetitive , boring or tasks that we simply do not have enough knowledge to complete.\
+# Goblin
+*Goblin* is an AI powered desktop automation app that automates repetitive and boring tasks
+(Don't mind the repository name. It is because i couldn't change it since it was locked after devlog)
